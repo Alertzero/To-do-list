@@ -28,7 +28,7 @@ class TodoItemsController < ApplicationController
     if @todo_item.save
       redirect_to(@todo_item.todo_list, notice: 'Todo item was successfully created.')
     else
-      render action: 'new'
+      redirect_to @todo_item.todo_list
     end
   end
 
@@ -45,7 +45,7 @@ class TodoItemsController < ApplicationController
   def destroy
     @todo_item.destroy
 
-    redirect_to todo_list_todo_items_url(@todo_list)
+    redirect_to @todo_list
   end
 
   private

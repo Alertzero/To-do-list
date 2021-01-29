@@ -1,49 +1,64 @@
-<div class="card-header d-flex justify-content-between">
-  <div>
-    <h5 class="m-0">
-    <%= @todo_list.title%>
-    <span class="badge bg-<%= @todo_list.badge_color %>"><%= @todo_list.status %></span>
-    </h5>
-    <p class="text-secondary m-0"><small><%= @todo_list.percent_complete%>% Complete (<%=@todo_list.completed_items%>/<%= @todo_list.total_items%>)</small></p>
-  </div>
-  <div>
-    <%= link_to 'Edit', edit_todo_list_path(@todo_list), class: 'btn btn-secondary btn-sm' %>
+<div class="card-header ">
+  <div class="row">
+    <div class="col-1">
+      <%= link_to todo_lists_path, class: "btn btn-dark" do %>
+        <i class="glyphicon glyphicon-chevron-left"></i>
+      <%end%>
+    </div>
+    <div class="col-11">
+      <div class="d-flex justify-content-between">
+        <div>
+          <h5 class="m-0">
+            <%= @todo_list.title%>
+            <span class="badge bg-<%= @todo_list.badge_color %>"><%= @todo_list.status %></span>
+          </h5>
+          <p class="text-secondary m-0"><small><%= @todo_list.percent_complete%>% Complete (<%=@todo_list.completed_items%>/<%= @todo_list.total_items%> items)</small></p>
+        </div>
+        <div>
+          <%= link_to 'Edit', edit_todo_list_path(@todo_list), class: 'btn btn-secondary btn-sm' %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="card-body">
   <div class="progress mb-3">
     <div class="progress-bar bg-info" role="progressbar" style="width: <%= @todo_list.percent_complete%>%" aria-valuenow="<%@todo_list.completed_items%>" aria-valuemin="0" aria-valuemax="100"></div>
   </div>
-
-
   <%= form_with(model: [@todo_list, @todo_item]) do |f| %>
-  <div class="input-group mb-4">
-    <%= f.text_field :description, class: "form-control", placeholder: "Add your todo items"%>
-    <div class="input-group-append">
-    <%= f.submit "Add", class: "btn btn-primary input-group-btn"%>
-    </div>
-  </div>
+    <%= render 'layouts/error_messages', object: f.object %>
+
+    < class="input-group mb-4">
+      <%= f.text_field :description, class: "form-control", placeholder: "Add your todo items"%>
+      
+      <%= f.submit "Add", class: "btn btn-primary"%>
+      
+    </>
   <% end %>
-
-
   <ul class="list-group">
     <% @todo_list.todo_items.each do |todo_item|%>
       <% if todo_item.completed? %>
         <li class="list-group-item bg-light">
           <div class="d-flex justify-content-between">
             <span>  <%= todo_item.description%></span>
+            <span>
             <%= link_to '#', class: "btn btn-dark", data: { reflex: 'click->TodoItem#mark_incomplete', id: todo_item.id} do%>
               <i class="fa">Completed</i>
             <% end%>
+            <i><%= link_to 'Destroy', [todo_item.todo_list, todo_item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> </i>
+            </span>
           </div>
         </li>
       <% else %>
         <li class="list-group-item">
           <div class="d-flex justify-content-between">
             <span>  <%= todo_item.description%></span>
+             <span>
             <%= link_to '#', class: "btn btn-info", data: { reflex: 'click->TodoItem#mark_complete', id: todo_item.id} do%>
               <i class="fa">Ongoing</i>
             <% end%>
+              <i><%= link_to 'Destroy', [todo_item.todo_list, todo_item], method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> </i>
+            </span>
           </div>
         </li>
       <% end %>
