@@ -1,24 +1,14 @@
-# README
+# Todo-app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a sample rails todolist appliaction made as part of my self-learning.
 
-Things you may want to cover:
+# Learning Experience
 
-* Ruby version
+<ul>
+<li>Stimulus Reflex</li>
+<li>Nested Scaffold</li>
+</ul>
 
-* System dependencies
+# Live Demo
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Coming soon
